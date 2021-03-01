@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import axios from 'axios';
 
-function LandingPage() {
+function LandingPage(props) {
 
     useEffect(() => {
         axios.get('/api/hello')
@@ -11,7 +11,11 @@ function LandingPage() {
     const onClickHandler = () => {
         axios.get('/api/users/logout')
         .then(response => {
-            console.log(response.data)
+            if(response.data.success) {
+                props.history.push('/login');
+            } else {
+                alert('로그아웃에 실패하였습니다.');
+            }
         })
     }
 
